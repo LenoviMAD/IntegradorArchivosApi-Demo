@@ -1,0 +1,59 @@
+@host = http://localhost:5080
+
+### 1. Login (usuario demo)
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "usuario": "demo",
+  "clave": "Demo123!"
+}
+
+### 2. Login con credenciales inválidas -> 401
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "usuario": "demo",
+  "clave": "clave-incorrecta"
+}
+
+### 3. Catálogo de productos sin token -> 401
+GET {{host}}/api/productos
+
+### 4. Catálogo de productos con token
+# Copiar el token devuelto por el login (paso 1) en la variable de abajo,
+# o usar la referencia automática {{login.response.body.token}} si el editor la soporta.
+@token = {{login.response.body.token}}
+
+GET {{host}}/api/productos
+Authorization: Bearer {{token}}
+
+### 5. Alta de un producto nuevo
+POST {{host}}/api/productos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "codigo": "P011",
+  "nombre": "Regla plástica 30cm",
+  "precio": 320.50,
+  "stock": 100
+}
+
+### 6. Registrar un pedido (llama a sp_RegistrarPedido)
+POST {{host}}/api/pedidos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "items": [
+    { "productoId": 1, "cantidad": 5 },
+    { "productoId": 3, "cantidad": 2 }
+  ]
+}
+
+### 7. Pedidos pendientes de la empresa 1
+GET {{host}}/api/pedidos/pendientes/1
+Authorization: Bearer {{token}}
