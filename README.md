@@ -8,7 +8,7 @@ API para integrar archivos de sincronización (productos, clientes, stock, maest
 - `ValidateBearer(HttpRequest)` parsea el header `Authorization: Bearer …` y valida contra ese diccionario en cada endpoint protegido.
 - Catálogo de productos y alta de producto.
 - Registro de pedidos vía un stored procedure (`sp_RegistrarPedido`) que inserta cabecera + detalle dentro de una transacción.
-- Cuatro endpoints de sincronización masiva (clientes, productos, stock, maestros) que consume [`SincroApp-Demo`](../SincroApp-Demo), con validación real de los datos recibidos antes de aplicarlos (campos requeridos, tipos, referencias) — no responden 200 OK a ciegas.
+- Cuatro endpoints de sincronización masiva (clientes, productos, stock, maestros) que consume [`SincroApp-Demo`](https://github.com/LenoviMAD/SincroApp-Demo), con validación real de los datos recibidos antes de aplicarlos (campos requeridos, tipos, referencias) — no responden 200 OK a ciegas.
 
 ## Requisitos
 
@@ -31,7 +31,7 @@ Usá `IntegradorArchivosApi.Demo.http` (VS Code REST Client / Rider / Visual Stu
 
 ## API a la que se conecta
 
-Ninguna — es standalone, habla directo con su propia base SQL Server LocalDB vía ADO.NET. Es esta misma API la que consume [`SincroApp-Demo`](../SincroApp-Demo) como backend.
+Ninguna — es standalone, habla directo con su propia base SQL Server LocalDB vía ADO.NET. Es esta misma API la que consume [`SincroApp-Demo`](https://github.com/LenoviMAD/SincroApp-Demo) como backend.
 
 ## Credenciales
 
